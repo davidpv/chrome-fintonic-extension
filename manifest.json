@@ -4,6 +4,10 @@
   "description": "Show sum total elements value",
   "version": "1.0",
   "offline_enabled": true,
+  "permissions": [
+    "activeTab",
+    "*://*.fintonic.com/*"
+  ],
   "background": {
     "persistent": false,
     "scripts": [
@@ -25,7 +29,7 @@
   ],
   "page_action": {
     "default_title": "Show sum total elements value",
-    "default_icon" : "icon_big.png",
+    "default_icon": "icon_big.png",
     "default_popup": "popup.html"
   }
 }

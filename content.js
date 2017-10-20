@@ -8,23 +8,48 @@ function doSum() {
     return total;
 }
 
-chrome.runtime.sendMessage({
-    from: 'content',
-    subject: 'showPageAction',
+// chrome.runtime.sendMessage({
+//     from: 'content',
+//     subject: 'showPageAction',
+// });
+
+// chrome.runtime.onMessage.addListener(function (msg, sender, response) {
+//     console.log('content onMessage', msg, sender);
+//     if ((msg.from === 'popup') && (msg.subject === 'doSum')) {
+//         var total = doSum();
+//         console.log('content total',total);
+//         response({total: total});
+//         chrome.runtime.sendMessage({total:total});
+//     }
+// });
+
 });
 
 chrome.runtime.onMessage.addListener(function (msg, sender, response) {
-    console.log('content onMessage', msg, sender);
-    if ((msg.from === 'popup') && (msg.subject === 'doSum')) {
-        var total = doSum();
-        console.log('content total',total);
-        response({total: total});
-        chrome.runtime.sendMessage({total:total});
-    }
-});
+    console.log('content chrome.runtime.onMessage', msg);
+    if (msg.parseContent) {
 
-window.addEventListener('DOMContentLoaded', function () {
-   console.log('content DOMContentLoaded');
+        $(function () {
+            $(document).on('click', function (e) {
+                $(document).ready(function () {
+                    //do some replace magic here
+                    var total = doSum();
+                    console.log('TOTALC', total);
+                    response({total: total});
+                    chrome.runtime.sendMessage({total: total});
+                });
+            });
+        });
+
+        $(document).ready(function () {
+
+            console.log('msg is parseContent');
+            var total = doSum();
+            console.log('TOTAL', total);
+            response({total: total});
+            chrome.runtime.sendMessage({total: total});
+        });
+    }
 });
 
 
