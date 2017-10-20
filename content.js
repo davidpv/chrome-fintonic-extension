@@ -10,17 +10,21 @@ function doSum() {
 
 chrome.runtime.sendMessage({
     from: 'content',
-    subject: 'showPageAction'
+    subject: 'showPageAction',
 });
 
 chrome.runtime.onMessage.addListener(function (msg, sender, response) {
-    console.log('popup doSum', msg);
+    console.log('content onMessage', msg, sender);
     if ((msg.from === 'popup') && (msg.subject === 'doSum')) {
         var total = doSum();
         console.log('content total',total);
         response({total: total});
         chrome.runtime.sendMessage({total:total});
     }
+});
+
+window.addEventListener('DOMContentLoaded', function () {
+   console.log('content DOMContentLoaded');
 });
 
 

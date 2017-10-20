@@ -2,9 +2,9 @@ function getResponse(response) {
     console.log('getResponse', response);
 }
 
-
 window.addEventListener('DOMContentLoaded', function () {
 
+    console.log('DOMContentLoaded');
     chrome.tabs.query({
         active: true,
         currentWindow: true
@@ -14,7 +14,7 @@ window.addEventListener('DOMContentLoaded', function () {
     });
 
     chrome.runtime.onMessage.addListener(function (message, sender) {
-        console.log(message, sender);
+        console.log('popup onMessage', message, sender);
         if (message.total) {
             $('#total').text(message.total);
         }
